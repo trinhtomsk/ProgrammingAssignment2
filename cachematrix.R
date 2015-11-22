@@ -19,10 +19,18 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## This function gets the value of inversed matrix if the value is cached, otherwise it computes the inversion of the input matrix
-
+## This function uses solve function to calculate the inversion of the input matrix
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        
+        m <- x$getinvMatrix()
+        if(!is.null(m)) {
+                message("getting cached data")
+                return(m)
+        }
+        data <- x$get()
+        m <- solve(data, ...)
+        x$setinvMatrix(m)
+        m
 }
 
 
